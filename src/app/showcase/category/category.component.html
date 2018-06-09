@@ -1,0 +1,24 @@
+<div class="card" [ngClass]="{'card-collapsed': toggled}">
+  <div class="card-status" [ngClass]="{'bg-blue': category.summ <= 0, 'bg-green': category.summ > 0}"></div>
+  <div class="card-header">
+    <img class="cat-img" [src]="'http://' + category.imageUrl" height="50" width="50">
+
+    <h4 class="cat-name">{{category.name}}</h4>
+
+    <div class="card-options">
+      <span class="category-summ">Сумма {{category.summ}} грн.</span>
+
+      <a (click)="toggled=!toggled;"  class="card-options-collapse" [ngbTooltip]="toggled? 'Развернуть' : 'Свернуть'">
+        <i class="fe" [ngClass]="{'fe-chevron-down': toggled, 'fe-chevron-up': !toggled}"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <app-category-child
+      *ngFor="let child of category.childs"
+      [childCategory]="child"
+      (onChange)="recalculate()"
+    ></app-category-child>
+  </div>
+</div>

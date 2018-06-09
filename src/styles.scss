@@ -1,0 +1,64 @@
+@import './assets/styles/index';
+
+$header-height: 56px;
+$footer-height: 26px;
+
+nav {
+  height: $header-height;
+}
+
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+app-layout {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0;
+
+  height: 100%;
+  min-height: 100%;
+}
+
+.app {
+  &-body{
+    position: relative;
+    flex-grow: 1;
+    align-items: stretch;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    height:     calc(100% - #{$header-height} - #{$footer-height});
+    min-height: calc(100% - #{$header-height} - #{$footer-height});
+
+    > .container-fluid {
+      position: relative;
+    }
+  }
+  &-footer{
+    display: flex;
+    height: $footer-height;
+  }
+}
+
+.vertical-text {
+  width:1px;
+  line-height: 16px;
+  word-wrap: break-word;
+}
+
+
+body.modal-open app-layout {
+  filter: blur(1px);
+}
+
+.navbar-collapse.show {
+  z-index: 999;
+  background-color: white;
+}

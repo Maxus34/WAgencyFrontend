@@ -1,0 +1,28 @@
+<div class="card mt-2">
+  <div class="card-header">Выберите необходимые товары или услуги из списка</div>
+
+  <div *ngIf="!isLoadingCategories" class="card-body">
+    <app-category *ngFor="let category of allCategories" [category]="category"></app-category>
+  </div>
+
+  <div *ngIf="isLoadingCategories" class="card-body p-5">
+    <div class="dimmer active">
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <div class="card-footer d-flex justify-content-between">
+    <div class="col-6 d-flex align-items-center">
+      <span class="stamp stamp-sm bg-blue mr-3">
+        <i class="fe fe-dollar-sign"></i>
+      </span>
+      <div class="m-0"> Итого {{cartService.totalSumm}} &#8372;</div>
+    </div>
+    <div class="col-6  d-flex align-items-center">
+      <span class="stamp stamp-sm bg-green mr-3">
+        <i class="fe fe-shopping-cart"></i>
+      </span>
+     <button [disabled]="cartService.totalSumm <= 0" class="btn btn-outline-success" [routerLink]="['/order']">Сделать заказ</button>
+    </div>
+  </div>
+</div>

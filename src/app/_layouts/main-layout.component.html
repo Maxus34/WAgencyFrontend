@@ -1,0 +1,33 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="#">Свадебная витрина</a>
+
+    <button (click)="isNavbarCollapsed=!isNavbarCollapsed" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/']">Главная</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/showcase']">Витрина</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<div class="app-body" [perfectScrollbar]>
+  <div class="container h-100">
+    <app-routing-animation></app-routing-animation>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<footer class="app-footer .bg-light">
+  <span>Powered by MXS34 &copy;</span>
+</footer>

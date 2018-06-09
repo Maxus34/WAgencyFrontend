@@ -1,0 +1,37 @@
+@font-face {
+  src: url("./assets/fonts/RobotoCondensed-Regular.ttf") format("truetype");
+  font-family: "RobotoCondensed-Regular";
+}
+
+@font-face {
+  src: url("./assets/fonts/RobotoCondensed-Bold.ttf") format("truetype");
+  font-family: "RobotoCondensed-Bold";
+}
+
+
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import '~bootstrap/scss/bootstrap';
+// @import 'spinner';
+@import 'sk-wave';
+
+@import 'variables';
+@import 'dashboard/dashboard';
+
+
+.block {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: calc(0.25rem - 1px);
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.list-item {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: calc(0.25rem - 1px);
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.deleted {
+  background-color: lighten($danger, 40%);
+}
