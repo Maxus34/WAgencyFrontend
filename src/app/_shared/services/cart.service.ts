@@ -1,35 +1,65 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { ApiService } from './api.service';
 import { Category, Product } from '../models';
+
 
 @Injectable()
 export class CartService {
 
   protected LS_KEY = 'cart';
 
+  public onChanged = new EventEmitter<void>();
+
   public items: Product[];
   public totalSumm = 0;
 
   public constructor (
     private apiService: ApiService,
-  ) {
+  ) { this.init(); }
 
+
+  public init () {
     this.items = this.getCartFromLS() || [];
     this.recalculateTotalSum();
   }
 
 
+  public clear () {
+    this.items = [];
+    this.totalSumm = 0;
+    this.saveCartToLS();
+    this.onChanged.next();
+  }
+
+
+  public setItems (items: Product[]) {
+    this.items = items;
+    this.recalculateTotalSum();
+    this.saveCartToLS();
+    this.onChanged.next();
+  }
+
+
   public addToCart (product: Product) {
-    this.items.push(product);
+    this.addProduct(product);
     this.saveCartToLS();
     this.recalculateTotalSum();
   }
+
+
 
 
   public removeFromCart (product: Product) {
     this.items = this.items.filter(item => item.id !== product.id);
     this.recalculateTotalSum();
     this.saveCartToLS();
+  }
+
+  protected addProduct (product: Product) {
+    if (this.items.find(item => +item.id === +product.id))
+      return;
+
+    this.items.push(product);
   }
 
 

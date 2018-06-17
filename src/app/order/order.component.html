@@ -10,7 +10,7 @@
             </span>
             <div class="m-0"> Итого {{totalSumm}} &#8372;</div>
           </div>
-          <button class="btn btn-sm btn-outline-warning">Очистить корзину</button>
+          <button (click)="clearCart()" class="btn btn-sm btn-outline-warning">Очистить корзину</button>
         </div>
       </div>
 
@@ -41,7 +41,13 @@
       </div>
 
       <div class="card-body">
-        <app-order-form></app-order-form>
+        <app-order-form (onSubmit)="submitOrder($event)"></app-order-form>
       </div>
     </div>
   </div>
+
+  <div *ngIf="isSubmitted" class="submitted-preloader d-flex flex-column justify-content-center align-items-center">
+    <h3 class="text-white">Заказ обрабатывается</h3>
+    <div class="loader"></div>
+  </div>
+</div>

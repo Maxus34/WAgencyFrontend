@@ -30,6 +30,11 @@ export class CategoryChildComponent implements OnInit {
 
 
   public ngOnInit () {
+
+    this.cartService.onChanged.subscribe(() => {
+      this.findSelectedItemsInCartItems(this.cartService.items);
+    });
+
     this.findSelectedItemsInCartItems(this.cartService.items);
   }
 
@@ -48,7 +53,7 @@ export class CategoryChildComponent implements OnInit {
   }
 
 
-  protected findSelectedItemsInCartItems (cartItems: Product[]){
+  protected findSelectedItemsInCartItems (cartItems: Product[]) {
     cartItems.forEach(item => {
       if (item.catId === this.childCategory.id) {
         this.select(item);

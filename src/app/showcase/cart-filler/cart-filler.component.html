@@ -1,0 +1,23 @@
+<div class="card" [class.card-collapsed]="toggled">
+  <div class="card-header">
+    <div class="card-title">Автоматический выбор товаров:</div>
+    <div class="card-options">
+      <a (click)="toggled=!toggled;" class="card-options-collapse" [ngbTooltip]="toggled? 'Развернуть' : 'Свернуть'">
+        <i class="fe" [ngClass]="{'fe-chevron-down': toggled, 'fe-chevron-up': !toggled}"></i>
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoadingCategories" class="card-body">
+    <div class="form-group">
+      <label>Введите необходимую сумму:</label>
+      <input class="form-control" [(ngModel)]="requiredSumm" type="number">
+    </div>
+    <button [disabled]="requiredSumm <= 0" (click)="fillCart()" class="btn btn-outline-success">Подобрать товары</button>
+  </div>
+
+  <div *ngIf="isLoadingCategories" class="card-body">
+    <div class="dimmer active">
+      <div class="loader"></div>
+    </div>
+  </div>
