@@ -6,13 +6,24 @@ import { Category, ChildCategory, Product } from '../../_shared/models';
 @Component({
   selector: 'app-cart-filler',
   templateUrl: 'cart-filler.component.html',
-  styles: [``]
+  styles: [`
+    .calculation-preloader{
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      z-index: 999;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+  `]
 })
 export class CartFillerComponent implements OnInit {
 
   public toggled = true;
   public isLoadingCategories: boolean;
   public allCategories: Category[];
+  public isCalculating = false;
 
   public requiredSumm = 0;
 
@@ -40,14 +51,20 @@ export class CartFillerComponent implements OnInit {
   }
 
   public fillCart () {
-    this.cartService.clear();
-    this.clearSelectedProducts();
-    this.cartService.setItems(this.getProductsForRequiredSum());
-    this.alertService.success(`Выбрано товаров на сумму ${(() => {
-      let sum = 0;
-      this.getSelectedProducts().forEach(product => sum += product.price);
-      return sum;
-    })()} грн.`);
+    this.isCalculating = true;
+    const timeout = Math.round(Math.random() * 20000);
+
+    setTimeout(() => {
+      this.cartService.clear();
+      this.clearSelectedProducts();
+      this.cartService.setItems(this.getProductsForRequiredSum());
+      this.alertService.success(`Выбрано товаров на сумму ${(() => {
+        let sum = 0;
+        this.getSelectedProducts().forEach(product => sum += product.price);
+        return sum;
+      })()} грн.`);
+      this.isCalculating = false;
+    }, timeout);
   }
 
   protected getProductsForRequiredSum (): Product[] {
@@ -58,6 +75,8 @@ export class CartFillerComponent implements OnInit {
       needToStop = true;
 
       this.allCategories.forEach((category: Category) => {
+        if (!category._selected) return;
+
         category.childs.forEach((childCat: ChildCategory) => {
           childCat.products.forEach((product: Product) => {
             if (childCat.selectedProduct) {
@@ -100,7 +119,7 @@ export class CartFillerComponent implements OnInit {
     const products = new Array<Product>();
     this.allCategories.forEach((category: Category) => {
       category.childs.forEach((childCat: ChildCategory) => {
-        if (childCat.selectedProduct){
+        if (childCat.selectedProduct) {
           products.push(childCat.selectedProduct);
         }
       });

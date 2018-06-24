@@ -17,7 +17,7 @@ export abstract class BaseModel {
 
   public constructor(data: any) {
     this._deleted = false;
-    this._selected = false;
+    this._selected = true;
 
     this.id        = data.id;
     this.createdAt = new Date(data.createdAt);

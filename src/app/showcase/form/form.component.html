@@ -1,5 +1,13 @@
 <div class="card mt-2">
-  <div class="card-header">Выберите необходимые товары или услуги из списка</div>
+  <div class="card-header">
+    <div class="card-title">
+      Выберите необходимые товары или услуги из списка
+    </div>
+
+    <div class="card-options">
+      <button class="btn btn-sm btn-outline-warning" (click)="clear()">Очистить</button>
+    </div>
+  </div>
 
   <div *ngIf="!isLoadingCategories" class="card-body">
     <app-category *ngFor="let category of allCategories" [category]="category"></app-category>

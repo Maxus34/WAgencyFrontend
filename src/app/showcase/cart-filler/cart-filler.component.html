@@ -14,10 +14,28 @@
       <input class="form-control" [(ngModel)]="requiredSumm" type="number">
     </div>
     <button [disabled]="requiredSumm <= 0" (click)="fillCart()" class="btn btn-outline-success">Подобрать товары</button>
+
+    <hr>
+
+    <label>Выберите среди каких категорий производить выбор:</label>
+    <div class="form-group">
+      <div *ngFor="let category of allCategories">
+        <label class="form-label">
+            <input type="checkbox" [(ngModel)]="category._selected">
+            {{category.name}}
+        </label>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="isLoadingCategories" class="card-body">
     <div class="dimmer active">
       <div class="loader"></div>
     </div>
+  </div>
+
+  <div *ngIf="isCalculating" class="calculation-preloader d-flex flex-column justify-content-center align-items-center">
+    <h3 class="text-white">Идет подбор оптимального набора товаров.</h3>
+    <h4 class="text-white">Пожалуйста подождите</h4>
+    <div class="loader"></div>
   </div>

@@ -27,6 +27,12 @@ export class FormComponent implements OnInit {
   }
 
 
+  public clear () {
+    this.cartService.clear();
+    this.loadCategories();
+  }
+
+
   protected async loadCategories () {
     this.isLoadingCategories = true;
 
